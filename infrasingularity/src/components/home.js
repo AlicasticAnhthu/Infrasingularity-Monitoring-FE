@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./home.css";
 
 const blockchains = [
@@ -12,6 +12,14 @@ const blockchains = [
 ];
 
 const Home = () => {
+
+    const navigate = useNavigate();
+    
+    const handleMetricsClick = (e) => {
+        e.preventDefault();
+        navigate('/metrics');
+      };
+
   return (
     <div className="home-container">
       {/* Navigation Bar with Online Logo */}
@@ -23,10 +31,12 @@ const Home = () => {
             className="logo" 
           />
         </div>
+        {/* 
         <div className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/profile">Profile</Link>
+            <Link to="/">Home</Link>
+            <Link to="/profile">Profile</Link>
         </div>
+        */}
       </nav>
 
       {/* Blockchain Cards Grid */}
@@ -36,7 +46,7 @@ const Home = () => {
             <h2 className="blockchain-name">{blockchain.name}</h2>
             <hr className="divider" />
             <p className="apr">ARP: {blockchain.apr}</p>
-            <button className="view-metrics">View Metrics</button>
+            <button type="button" className="view-metrics" onClick={handleMetricsClick}>View Metrics</button>
             <img src={blockchain.logo} alt={blockchain.name} className="blockchain-logo" />
           </div>
         ))}

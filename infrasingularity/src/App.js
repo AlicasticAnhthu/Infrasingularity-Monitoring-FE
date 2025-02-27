@@ -1,14 +1,20 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/home.js"; // Ensure the file name is correct
+import { Routes, Route } from 'react-router-dom';
+import Login from './components/login';
+import Metrics from './components/metrics';
+import Home from './components/home';
+
+import './App.css';
 
 function App() {
   return (
-    <Router>
+    <div className="app-container">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/metrics" element={<Metrics />} />
+        <Route path="/home" element={<Home />} />
+        {/* Add other pages later */}
       </Routes>
-    </Router>
+    </div>
   );
 }
 
