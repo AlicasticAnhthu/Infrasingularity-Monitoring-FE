@@ -1,0 +1,78 @@
+.page-container {
+    width: 100%;
+    min-height: 100vh; /* Ensures the container fills at least the viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem 2rem 2rem; /* Adds space for the fixed header */
+    overflow-y: auto; /* Enables scrolling */
+  }
+
+  .link-container {
+    width: 90%;
+    max-width: 1200px;
+    height: 30px; /* Shortened height */
+    background: #444444;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem; /* Adds space between the fixed header and the link container */
+    margin-bottom: 1rem;
+    color: white; /* Ensures text is visible */
+  }
+
+  .metrics-container {
+    background: #444444;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align boxes horizontally */
+    align-items: flex-start; /* Align boxes to the top */
+  }
+
+  .half-screen {
+    width: calc(50% - 10px); /* Ensures each half-screen box takes 50% of the container minus the space between them */
+    height: 120px; /* Set height to match the full-width box */
+    background: #a9a7a7; /* Background color */
+    border-radius: 12px;
+    margin: 5px; /* Margin between the boxes */
+    display: flex;
+    justify-content: flex-start; /* Align text to the left horizontally */
+    align-items: flex-start; /* Align text to the top vertically */
+    color: black; /* Text color set to black */
+    padding: 10px; /* Padding to create space inside the box */
+    box-sizing: border-box; /* Makes sure padding is included in width/height calculation */
+  }
+  
+  .full-width-box {
+    width: 100%; /* Full width of the container */
+    height: 120px; /* Height of the full-width box */
+    border-radius: 12px;
+    background: #a9a7a7; /* Background color */
+    display: flex; /* Ensures the boxes inside are laid out horizontally */
+    justify-content: space-between; /* Space between the two boxes */
+    padding: 10px;
+    margin-top: 5px;
+  }
+  
+  .uptime-box, .downtime-box {
+    width: 48%; /* Each box takes up about half the width of the container */
+    height: 100%;
+    border-radius: 12px;
+    display: flex;
+    justify-content: flex-start; /* Align text to the left horizontally */
+    align-items: flex-start; /* Align text to the top vertically */
+    color: black; /* Text color set to black */
+  }
+  
+  
+  /* Force body and html to allow scrolling */
+  html, body {
+    height: 100%;
+    overflow-y: auto; /* Ensures scrolling works */
+  }
