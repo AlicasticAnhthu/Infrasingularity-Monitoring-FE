@@ -25,14 +25,16 @@ const Home = () => {
         return response.json();
       })
       .then(data => {
+        console.log("Fetched Data:", data); // Add this
         const formattedData = Object.entries(data).map(([avs_name, status]) => ({
-          raw_name: avs_name, // Keep raw name (for backend query)
+          raw_name: avs_name,
           name: formatName(avs_name),
           status: status,
           logo: "/images/default.png"
         }));
         setBlockchains(formattedData);
       })
+      
       .catch(error => {
         console.error("Error fetching AVS data:", error);
       });

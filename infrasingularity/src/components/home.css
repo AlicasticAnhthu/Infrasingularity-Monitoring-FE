@@ -1,108 +1,112 @@
-/* Apply Background & General Styling */
+/* General Body Styling */
 body {
-    background-color: #000000; /* Black */
-    color: #ffffff; /* White text */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Navbar Styling */
+  background-color: #000000;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  overflow: auto;
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  align-items: center;
+  background-color: #000000;
+}
+
+.logo-container img {
+  height: 50px;
+}
+
+/* Grid Container */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 40px;
+  justify-items: center;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Card Styling */
+.card {
+  background-color: #444444;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  min-height: 220px;
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Blockchain Name */
+.blockchain-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Divider */
+.divider {
+  width: 80%;
+  margin: 10px auto;
+  border: 1px solid white;
+}
+
+/* Status Text */
+.status {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+/* View Metrics Button */
+.view-metrics {
+  background-color: #6e6b6b;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  margin-top: 15px;
+  transition: background 0.3s ease;
+}
+
+.view-metrics:hover {
+  background-color: #777777;
+}
+
+/* Blockchain Logos (Optional future feature) */
+.blockchain-logo {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 500px) {
   .navbar {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 20px;
-    align-items: center;
-    background-color: #000000;
   }
   
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 18px;
-  }
-  
-  .nav-links a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Card Grid Layout */
   .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 40px;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Card Styling */
-  .card {
-    background-color: #444444; /* Grey */
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
-    width: 250px;
-    height: 200px;
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
   }
-  
-  .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 6px 10px rgba(255, 255, 255, 0.2);
-  }
-  
-  /* Blockchain Name */
-  .blockchain-name {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  /* Divider Line */
-  .divider {
-    width: 80%;
-    margin: 10px auto;
-    border: 1px solid white;
-  }
-  
-  /* APR Text */
-  .apr {
-    color: #e30619; /* Red */
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  /* View Metrics Button */
-  .view-metrics {
-    background-color: #6e6b6b; /* Buttons */
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
-    font-size: 14px;
-    transition: background 0.3s;
-    margin: 10%;
-  }
-  
-  .view-metrics:hover {
-    background-color: #777777; /* Text Box */
-  }
-  
-  /* Blockchain Logos */
-  .blockchain-logo {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
-  
+}
