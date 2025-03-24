@@ -26,6 +26,7 @@ const Home = () => {
       })
       .then(data => {
         const formattedData = Object.entries(data).map(([avs_name, status]) => ({
+          raw_name: avs_name, // Keep raw name (for backend query)
           name: formatName(avs_name),
           status: status,
           logo: "/images/default.png"
@@ -37,9 +38,8 @@ const Home = () => {
       });
   }, []);
 
-  const handleMetricsClick = (e) => {
-    e.preventDefault();
-    navigate('/metrics');
+  const handleMetricsClick = (protocolRawName) => {
+    navigate('/metrics', { state: { protocolRawName } }); // Pass raw name to Metrics page
   };
 
   return (
@@ -54,17 +54,23 @@ const Home = () => {
         </div>
       </nav>
 
-     <div className="grid-container">
-      {blockchains.length > 0 ? blockchains.map((blockchain, index) => (
-        <div className="card" key={index}>
-          <h2 className="blockchain-name">{blockchain.name}</h2>
-          <hr className="divider" />
-          <p className="status">Status: {blockchain.status}</p>
-          <button type="button" className="view-metrics" onClick={handleMetricsClick}>View Metrics</button>
-        </div>
-      )) : <p>Loading...</p>}
-   </div>
-  </div>
+      <div className="grid-container">
+        {blockchains.length > 0 ? blockchains.map((blockchain, index) => (
+          <div className="card" key={index}>
+            <h2 className="blockchain-name">{blockchain.name}</h2>
+            <hr className="divider" />
+            <p className="status">Status: {blockchain.status}</p>
+            <button 
+              type="button" 
+              className="view-metrics" 
+              onClick={() => handleMetricsClick(blockchain.raw_name)} // Pass raw_name
+            >
+              View Metrics
+            </button>
+          </div>
+        )) : <p>Loading...</p>}
+      </div>
+    </div>
   );
 };
 
