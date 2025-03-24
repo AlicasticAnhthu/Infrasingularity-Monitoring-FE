@@ -1,28 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./home.css";
 
-const blockchains = [
-  { name: "Ethereum", apr: "7%", logo: "/images/ethereum.png" },
-  { name: "Sui", apr: "7%", logo: "/images/sui.png" },
-  { name: "Aptos", apr: "7%", logo: "/images/aptos.png" },
-  { name: "Babylon", apr: "7%", logo: "/images/babylon.png" },
-  { name: "Celestia", apr: "7%", logo: "/images/celestia.png" },
-  { name: "Casper", apr: "7%", logo: "/images/casper.png" },
-];
-
 const Home = () => {
+  const [blockchains, setBlockchains] = useState([]);
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-    
-    const handleMetricsClick = (e) => {
-        e.preventDefault();
-        navigate('/metrics');
-      };
+  const formatName = (rawName) => {
+    let name = rawName;
+    name = name.replace(/^(is-|tt-)/, ""); // Remove prefix
+    name = name.replace(/-/g, " ");        // Replace dashes with spaces
+    name = name.split(" ").map(word =>
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(" ");                           // Capitalize
+    return name;
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/avs/overall_status")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(data => {
+        const formattedData = Object.entries(data).map(([avs_name, status]) => ({
+          name: formatName(avs_name),
+          status: status,
+          logo: "/images/default.png"
+        }));
+        setBlockchains(formattedData);
+      })
+      .catch(error => {
+        console.error("Error fetching AVS data:", error);
+      });
+  }, []);
+
+  const handleMetricsClick = (e) => {
+    e.preventDefault();
+    navigate('/metrics');
+  };
 
   return (
     <div className="home-container">
-      {/* Navigation Bar with Online Logo */}
       <nav className="navbar">
         <div className="logo-container">
           <img 
@@ -31,27 +52,19 @@ const Home = () => {
             className="logo" 
           />
         </div>
-        {/* 
-        <div className="nav-links">
-            <Link to="/">Home</Link>
-            <Link to="/profile">Profile</Link>
-        </div>
-        */}
       </nav>
 
-      {/* Blockchain Cards Grid */}
-      <div className="grid-container">
-        {blockchains.map((blockchain, index) => (
-          <div className="card" key={index}>
-            <h2 className="blockchain-name">{blockchain.name}</h2>
-            <hr className="divider" />
-            <p className="apr">ARP: {blockchain.apr}</p>
-            <button type="button" className="view-metrics" onClick={handleMetricsClick}>View Metrics</button>
-            <img src={blockchain.logo} alt={blockchain.name} className="blockchain-logo" />
-          </div>
-        ))}
-      </div>
-    </div>
+     <div className="grid-container">
+      {blockchains.length > 0 ? blockchains.map((blockchain, index) => (
+        <div className="card" key={index}>
+          <h2 className="blockchain-name">{blockchain.name}</h2>
+          <hr className="divider" />
+          <p className="status">Status: {blockchain.status}</p>
+          <button type="button" className="view-metrics" onClick={handleMetricsClick}>View Metrics</button>
+        </div>
+      )) : <p>Loading...</p>}
+   </div>
+  </div>
   );
 };
 
