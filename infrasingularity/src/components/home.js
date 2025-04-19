@@ -6,18 +6,25 @@ const Home = () => {
   const [blockchains, setBlockchains] = useState([]);
   const navigate = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem('user')); // 👈 stored after login
+
   const formatName = (rawName) => {
     let name = rawName;
     name = name.replace(/^(is-|tt-)/, ""); // Remove prefix
     name = name.replace(/-/g, " ");        // Replace dashes with spaces
     name = name.split(" ").map(word =>
       word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(" ");                           // Capitalize
+    ).join(" ");
     return name;
   };
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/avs/overall_status")
+    if (!user || !user.username) {
+      console.error("User not logged in");
+      return;
+    }
+
+    fetch(`http://127.0.0.1:5001/api/account/avs_status?username=${user.username}`)
       .then(response => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -25,23 +32,21 @@ const Home = () => {
         return response.json();
       })
       .then(data => {
-        console.log("Fetched Data:", data); // Add this
-        const formattedData = Object.entries(data).map(([avs_name, status]) => ({
-          raw_name: avs_name,
-          name: formatName(avs_name),
-          status: status,
+        const formattedData = data.map(avs => ({
+          raw_name: avs.avs_name,
+          name: formatName(avs.avs_name),
+          status: avs.status,
           logo: "/images/default.png"
         }));
         setBlockchains(formattedData);
       })
-      
       .catch(error => {
         console.error("Error fetching AVS data:", error);
       });
   }, []);
 
   const handleMetricsClick = (protocolRawName) => {
-    navigate('/metrics', { state: { protocolRawName } }); // Pass raw name to Metrics page
+    navigate('/metrics', { state: { protocolRawName } });
   };
 
   return (
@@ -65,7 +70,7 @@ const Home = () => {
             <button 
               type="button" 
               className="view-metrics" 
-              onClick={() => handleMetricsClick(blockchain.raw_name)} // Pass raw_name
+              onClick={() => handleMetricsClick(blockchain.raw_name)}
             >
               View Metrics
             </button>

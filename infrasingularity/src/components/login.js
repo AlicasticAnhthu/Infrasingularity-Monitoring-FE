@@ -23,7 +23,7 @@ const Login = () => {
       .then((res) => res.json().then((data) => ({ status: res.status, data })))
       .then(({ status, data }) => {
         if (status === 200) {
-          console.log('✅ Login successful:', data);
+          console.log('Login successful:', data);
 
           // Store session
           localStorage.setItem('user', JSON.stringify(data));
@@ -35,7 +35,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.error('🔥 Login request failed:', err);
+        console.error('Login request failed:', err);
         alert('Unable to login. Please try again later.');
       });
   };
