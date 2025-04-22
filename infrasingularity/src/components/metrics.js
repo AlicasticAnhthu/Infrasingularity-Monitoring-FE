@@ -57,18 +57,23 @@ const Metrics = () => {
         {metrics ? (
           <>
         <div className="half-screen"><strong>Total Staked:</strong>&nbsp;{formatStaked(metrics.total_staked)}</div>
+
         <div className="half-screen"><strong>Network APY:</strong>&nbsp;{metrics.network_apy ?? "-"}</div>
 
-        <div className="half-screen"><strong>Total ETH TVL:</strong>&nbsp;{metrics.total_eth_tvl ?? "-"}</div>
-        <div className="half-screen"><strong>Total Eigen TVL:</strong>&nbsp;{metrics.total_eigen_tvl ?? "-"}</div>
+        <div className="half-screen"><strong>Total ETH TVL:</strong>&nbsp;{metrics.total_eth_tvl}</div>
+        
+        <div className="half-screen"><strong>Total Eigen TVL:</strong>&nbsp;{metrics.total_eigen_tvl}</div>
 
-        <div className="half-screen"><strong>ETH TVL (USD):</strong>&nbsp;{metrics.eth_tvl_usd ?? "-"}</div>
-        <div className="half-screen"><strong>Eigen TVL (USD):</strong>&nbsp;{metrics.eigen_tvl_usd ?? "-"}</div>
+        <div className="half-screen"><strong>ETH TVL (USD):</strong>&nbsp;{formatStaked(metrics.eth_tvl_usd)}</div>
+
+        <div className="half-screen"><strong>Eigen TVL (USD):</strong>&nbsp;{formatStaked(metrics.eigen_tvl_usd)}</div>
 
         <div className="half-screen"><strong>Validation Score:</strong>&nbsp;{metrics.validation_success_score ?? "-"}</div>
+
         <div className="half-screen"><strong>Node Count:</strong>&nbsp;{metrics.node_count}</div>
 
         <div className="half-screen"><strong>Uptime:</strong>&nbsp;{formatUptimeDays(metrics.uptime)}</div>
+
         <div className="half-screen"><strong>Status:</strong>&nbsp;{metrics.status}</div>
 
           </>
