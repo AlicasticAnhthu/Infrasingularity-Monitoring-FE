@@ -6,8 +6,6 @@ const Home = () => {
   const [blockchains, setBlockchains] = useState([]);
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem('user')); // 👈 stored after login
-
   const formatName = (rawName) => {
     let name = rawName;
     name = name.replace(/^(is-|tt-)/, ""); // Remove prefix
@@ -19,11 +17,12 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
     if (!user || !user.username) {
       console.error("User not logged in");
       return;
     }
-
+  
     fetch(`http://127.0.0.1:5001/api/account/avs_status?username=${user.username}`)
       .then(response => {
         if (!response.ok) {
@@ -44,7 +43,7 @@ const Home = () => {
         console.error("Error fetching AVS data:", error);
       });
   }, []);
-
+  
   const handleMetricsClick = (protocolRawName) => {
     navigate('/metrics', { state: { protocolRawName } });
   };
